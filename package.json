@@ -19,5 +19,6 @@
   "homepage": "https://github.com/invee123/303_Project#readme",
   "dependencies": {
     "google-trends-api": "^4.9.0"
-  }
+  },
+  "devDependencies": {}
 }
