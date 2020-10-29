@@ -1,0 +1,23 @@
+{
+  "name": "303project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/invee123/303_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/invee123/303_Project/issues"
+  },
+  "homepage": "https://github.com/invee123/303_Project#readme",
+  "dependencies": {
+    "google-trends-api": "^4.9.0"
+  }
+}
