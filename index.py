@@ -1,3 +1,4 @@
+
 from Naked.toolshed.shell import execute_js, muterun_js
 
 success = execute_js('index.js')
