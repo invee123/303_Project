@@ -3,7 +3,7 @@ const fs = require('fs');
 
 googleTrends.interestOverTime({keyword: 'Trump', startTime: new Date('2017-02-01'), granularTimeResolution: true})
 .then(function(results){
-  fs.writeFile("output.txt", results, function(err) {
+  fs.writeFile("trend_trump.txt", results, function(err) {
       if(err) {
           return console.log(err);
       }
