@@ -1,3 +1,4 @@
+# Tiingo parser
 import json
 import pandas as pd
 
@@ -6,11 +7,8 @@ class TimelineElement:
     def __init__(self, timelineData, index):
         data = timelineData[index]
 # Example entry showing all rows:
-# -> {'time': '1486252800', 'formattedTime': 'Feb 5 â€“ 11, 2017', 'formattedAxisTime': 'Feb 5, 2017', 'value': [67], 'hasData': [True], 'formattedValue': ['67']}
-        if (data['hasData'][0]):
-            self.entry = {"hasData":data['hasData'][0], "time":data['time'], "formattedAxisTime":data['formattedAxisTime'], "value":data['value'][0], "formattedValue":data['formattedValue'][0]}
-        else:
-            self.entry = {"hasData":data['hasData'][0], "time":"no-data", "formattedAxisTime":"no-data", "value":0, "formattedValue":"no-data"}
+# -> {"date": "2017-08-01T00:00:00.000Z", "close": 946.56, "high": 954.49, "low": 944.96, "open": 947.81, "volume": 1205799, "adjClose": 946.56, "adjHigh": 954.49, "adjLow": 944.96, "adjOpen": 947.81, "adjVolume": 1205799, "divCash": 0.0, "splitFactor": 1.0}
+        self.entry = {"date":data['date'], "close":data['close'], "high":data['high'], "low":data['low'], "open":data['open'], "volume":data['volume'], "adjClose":data['adjClose'], "adjHigh":data['adjHigh'], "adjLow":data['adjLow'], "adjOpen":data['adjOpen'], "adjVolume":data['adjVolume'], "divCash":data['divCash'], "splitFactor":data['splitFactor']}
 
 class TrendParser:
     def __init__(self, fileURI):
@@ -20,14 +18,14 @@ class TrendParser:
         with open(fileURI) as file:
             json_data = json.load(file)
         # Extract our useful data
-        self.timelineData = json_data['default']['timelineData']
+        self.timelineData = json_data
 
         self.dataElements = []
 
         for i in range(0, len(self.timelineData)):
             self.dataElements.append(TimelineElement(self.timelineData, i))
 
-    def buildDataFrame(self, dataColumns=["time","formattedAxisTime","value","formattedValue"], includeEmptyElements=False):
+    def buildDataFrame(self, dataColumns=["date","close","volume","high","low"]):
         columns = dict()
         for col in dataColumns:
             columns[col] = []
@@ -35,16 +33,13 @@ class TrendParser:
             for col in dataColumns:
                 obj = elements.entry[col]
                 if (obj):
-                    if (elements.entry["hasData"]):
-                        columns[col].append(obj)
-                    elif (includeEmptyElements):
-                        columns[col].append(obj)
+                    columns[col].append(obj)
                 else:
                     logging.error("Bad dataColumn entry",col,"could not be found in the data.")
         df = pd.DataFrame.from_dict(columns, orient="index")
         return df.transpose()
 
 ########## EXAMPLE RUN ############
-# p = TrendParser("trend_tax.txt")
-# df = p.buildDataFrame()
+# parserObject = TrendParser("data.json")
+# df = parserObject.buildDataFrame()
 # print(df.head())

@@ -1,34 +1,23 @@
 from Naked.toolshed.shell import execute_js, muterun_js
 from Naked.toolshed.types import NakedObject
 
-success = muterun_js('index.js')
-#print(dir(success))
-#print(type(success))
+from google_parser import TrendParser as GoogleParser
+from tiingo_parser import TrendParser as TiingoParser
 
+# Fetch data
+success = muterun_js('index.js')
 
 if success:
     print('Index.js successfully run')
-    #Grants solution
-
-    #create arrays
-    trump_time = []
-    trump_value = []
-
-    #read in file
-    trump_f = open("trend_trump.txt", "r")
-    trump = trump_f.read()
-    trump_f.close()
-
-    tax_f = open("trend_tax.txt", "r")
-    tax = tax_f.read()
-    tax_f.close()
-
-    #parse necessary data
-    #store parsed data in multiple arrays
-        #keep indicies the same
-    
-    #load into ML model
-
 else:
     print("i hate node w/ python")
 
+# Set up dataframes
+googleData = {}
+googleData["tax"] = GoogleParser("trend_tax.txt").buildDataFrame()
+googleData["trump"] = GoogleParser("trend_trump.txt").buildDataFrame()
+tiingoData = TiingoParser("data.json").buildDataFrame()
+
+print(googleData["tax"].describe())
+print(googleData["trump"].describe())
+print(tiingoData.describe())
