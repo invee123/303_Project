@@ -1,7 +1,7 @@
 const googleTrends = require('google-trends-api');
 const fs = require('fs');
 
-googleTrends.interestOverTime({keyword: 'Trump', startTime: new Date('2017-02-01'), granularTimeResolution: true})
+googleTrends.interestOverTime({keyword: 'Trump', startTime: new Date('2016-01-01'), granularTimeResolution: true})
 .then(function(results){
   fs.writeFile("trend_trump.txt", results, function(err) {
       if(err) {
@@ -14,7 +14,7 @@ googleTrends.interestOverTime({keyword: 'Trump', startTime: new Date('2017-02-01
   console.error('Couldn\'t read trends', err);
 });
 
-googleTrends.interestOverTime({keyword: 'Raise Taxes', startTime: new Date('2017-02-01'), granularTimeResolution: true})
+googleTrends.interestOverTime({keyword: 'Raise Taxes', startTime: new Date('2016-01-01'), granularTimeResolution: true})
 .then(function(results){
   fs.writeFile("trend_tax.txt", results, function(err) {
       if(err) {

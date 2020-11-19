@@ -19,5 +19,8 @@ googleData["trump"] = GoogleParser("trend_trump.txt").buildDataFrame()
 tiingoData = TiingoParser("data.json").buildDataFrame()
 
 print(googleData["tax"].describe())
-print(googleData["trump"].describe())
 print(tiingoData.describe())
+
+
+print(googleData["trump"].head())
+print(tiingoData.head())

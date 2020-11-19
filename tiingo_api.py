@@ -11,7 +11,7 @@ config['session'] = True
 # If you don't have your API key as an environment variable,
 # pass it in via a configuration dictionary.
 # Enter tiingo account key:
-config['api_key'] = "ENTER_KEY"
+config['api_key'] = "165484aa790a4dc0e064a0f5d9ebe7948a5c3a4b"
 # Initialize
 client = TiingoClient(config)
 
@@ -22,11 +22,11 @@ ticker_metadata = client.get_ticker_metadata("GOOGL")
 ticker_price = client.get_ticker_price("GOOGL", frequency="weekly")
 
 # Get historical prices from different dates by adjusting parameters
-historical_prices = client.get_ticker_price("GOOGL",fmt='json',startDate='2017-08-01',endDate='2017-08-31',frequency='daily')
+historical_prices = client.get_ticker_price("GOOGL",fmt='json',startDate='2016-01-08',frequency='weekly')
 
 # Print out price results - every line has info from every frequency (every day/week/month/etc...)
-for i in range(0, len(historical_prices)):
-    print(historical_prices[i])
+#for i in range(0, len(historical_prices)):
+    #print(historical_prices[i])
 
 # Outputs results to JSON file (can change name of file)
 with open('data.json', 'w') as outfile:
